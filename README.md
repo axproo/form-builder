@@ -208,9 +208,9 @@ import App from './App.vue'
 import { FormBuilderPlugin } from '@axproo/form-builder'
 
 createApp(App)
-.use(FormBuilderPlugin, {
-apiBaseUrl: import.meta.env.VITE_API_URL,
-enableMock: import.meta.env.DEV
+    .use(FormBuilderPlugin, {
+    apiBaseUrl: import.meta.env.VITE_API_URL,
+    enableMock: import.meta.env.DEV
 })
 .mount('#app')
 ```
