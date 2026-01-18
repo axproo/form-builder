@@ -1,5 +1,8 @@
 <template>
-    <div v-if="loading">Chargement...</div>
+    <div v-if="loading">
+        <slot v-if="slots.spinner" name="spinner"/>
+        <span v-else>Chargment...</span>
+    </div>
     <div v-else-if="error">{{ error }}</div>
 
     <form v-else @submit.prevent="handleSubmit" :class="formClass">
@@ -24,8 +27,11 @@
                 </component>
             </div>
         </template>
-        <slot name="errorGlobal">
-            {{ errorHandler.globalError.message }}
+
+        <slot name="errorGlobal" :error="errorHandler.globalError.message">
+            <p v-if="errorHandler.globalError.message" class="text-red-600 text-sm">
+                {{ errorHandler.globalError.message }}
+            </p>
         </slot>
 
         <slot name="submit">
@@ -37,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref, Slots, useSlots, watch } from 'vue';
 import { useFormSchema } from '../core/useFormSchema';
 import { useFormState } from '../core/useFormState';
 import { isVisible } from '../core/useVisibility';
@@ -49,16 +55,17 @@ const props = defineProps<{
     formId: string,
     ui?: Record<string, FieldUI>
     formClass?: string,
-    buttonClass?: string
+    buttonClass?: string,
+    errors?: ReturnType<typeof useFormErrors>
 }>()
+const errorHandler = props.errors ?? useFormErrors()
+const slots: Slots = useSlots()
 
 const emit = defineEmits<{
     (e: 'submit', data: Record<string, any>): void
 }>()
 const buttonClass = props.buttonClass ?? ''
-
 const { schema: backendSchema, loading, error } = useFormSchema(props.formId)
-const errorHandler = useFormErrors()
 
 const schema = computed<FormSchema | null>(() => {
     if (!backendSchema.value) return null

@@ -41,7 +41,8 @@ export interface FormField {
 
 export interface BaseFieldProps {
     modelValue: any,
-    field: FormField
+    field: FormField,
+    error?: string | null
 }
 
 export type FieldUIMap = Record<string, FieldUI>

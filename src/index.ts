@@ -1,4 +1,5 @@
 export { FormBuilderPlugin } from './plugins/FormBuilderPlugin'
+export { useFormErrors } from './core/useFormErrors' 
 export { default as DynamicForm } from './components/DynamicForm.vue'
 
 export { 
