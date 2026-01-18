@@ -196,6 +196,38 @@ Permet de masquer / afficher un champ selon :
 
 ---
 
+## 🔗 Intégration du plugin et chemins relatifs
+
+### Installation et configuration
+
+Le form-builder est un plugin Vue configurable. Il doit être installé avec la configuration apiBaseUrl et enableMock :
+
+```bash
+import { createApp } from 'vue'
+import App from './App.vue'
+import { FormBuilderPlugin } from '@axproo/form-builder'
+
+createApp(App)
+.use(FormBuilderPlugin, {
+apiBaseUrl: import.meta.env.VITE_API_URL,
+enableMock: import.meta.env.DEV
+})
+.mount('#app')
+```
+
+## Attention aux chemins relatifs
+
+Tous les composants doivent être importés avec des chemins corrects par rapport au fichier FormBuilderPlugin.ts :
+
+```bash
+import DynamicForm from '../components/DynamicForm.vue'
+import { TextField, CheckboxField, FileField, ... } from '../components/fields'
+```
+
+Option recommandée : créer un index.ts dans components/fields pour regrouper tous les exports, ce qui simplifie les imports dans le plugin.
+
+✔️ Cela évite les erreurs de build (Could not resolve) et rend la librairie scalable et maintenable.
+
 ## 🧠 Philosophie
 
 * Le **backend décrit le formulaire**

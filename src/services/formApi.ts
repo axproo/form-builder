@@ -4,12 +4,13 @@ import { FormBuilderConfigKey } from "../config/form.config.key";
 
 export async function fetchFormSchema(formId: string) {
     const config = inject(FormBuilderConfigKey)
+    console.log(config)
 
     if (!config) {
         throw new Error('[FormBuilder] Plugin not installed')
     }
 
-    const res = await fetch(`${config.apiBaseUrl}/v1/forms/show/${formId}`, {
+    const res = await fetch(`${config.apiBaseUrl}/forms/show/${formId}`, {
         credentials: 'include'
     })
 
