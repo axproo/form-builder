@@ -4,7 +4,6 @@ import { FormBuilderConfigKey } from "../config/form.config.key";
 
 export async function fetchFormSchema(formId: string) {
     const config = inject(FormBuilderConfigKey)
-    console.log(config)
 
     if (!config) {
         throw new Error('[FormBuilder] Plugin not installed')
