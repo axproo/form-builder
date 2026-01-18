@@ -1,8 +1,15 @@
-import { formConfig } from "../config/form.config";
+import { inject } from "vue";
+import { FormBuilderConfigKey } from "../config/form.config.key";
 
 
 export async function fetchFormSchema(formId: string) {
-    const res = await fetch(`${formConfig.apiBaseUrl}/v1/forms/show/${formId}`, {
+    const config = inject(FormBuilderConfigKey)
+
+    if (!config) {
+        throw new Error('[FormBuilder] Plugin not installed')
+    }
+
+    const res = await fetch(`${config.apiBaseUrl}/v1/forms/show/${formId}`, {
         credentials: 'include'
     })
 

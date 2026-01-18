@@ -1,6 +1,7 @@
 {
   "name": "form-builder",
-  "version": "1.0.1",
+  "version": "1.0.2",
+  "description": "Système complet de génération de formulaires dynamiques, réutilisable pour tous les projets Vue 3.",
   "type": "module",
   "main": "./dist/form-builder.umd.js",
   "module": "./dist/form-builder.es.js",
